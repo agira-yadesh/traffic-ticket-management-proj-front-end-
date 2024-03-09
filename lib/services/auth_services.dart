@@ -9,6 +9,9 @@ import 'package:trafficticket_management/model/user.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:trafficticket_management/pages/homePage.dart';
+import 'package:trafficticket_management/pages/login.dart';
+
+import 'package:trafficticket_management/pages/setPassword.dart';
 import 'package:trafficticket_management/providers/user_provider.dart';
 import 'package:trafficticket_management/util/constants.dart';
 import 'package:trafficticket_management/util/util.dart';
@@ -45,8 +48,12 @@ class AuthService {
         context: context,
         onSuccess: () {
           showSnackBar(context, 'Created');
-          Navigator.pushReplacementNamed(context, '/password_setup',
-              arguments: _tempUser);
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SetPasswordPage(argument: _tempUser),
+            ),
+          );
         },
       );
     } catch (e) {
@@ -82,7 +89,12 @@ class AuthService {
         context: context,
         onSuccess: () {
           showSnackBar(context, 'Account Created');
-          Navigator.pushReplacementNamed(context, '/login');
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => LoginPage(),
+            ),
+          );
         },
       );
     } catch (e) {

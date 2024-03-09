@@ -6,7 +6,9 @@ import 'package:trafficticket_management/model/user.dart';
 import 'package:trafficticket_management/services/auth_services.dart';
 
 class SetPasswordPage extends StatelessWidget {
-  SetPasswordPage({super.key});
+  final User argument;
+
+  SetPasswordPage({super.key, required this.argument});
 
   final otpController = TextEditingController();
   final passwordController = TextEditingController();
@@ -14,8 +16,6 @@ class SetPasswordPage extends StatelessWidget {
   final AuthService authService = AuthService();
 
   void setPassword(BuildContext context) {
-    final User tempUser = ModalRoute.of(context)?.settings.arguments as User;
-
     print('Set Password button tapped');
 
     authService.setPassword(
@@ -23,7 +23,7 @@ class SetPasswordPage extends StatelessWidget {
       otp: otpController.text,
       password: passwordController.text,
       confirmPassword: confirmpasswordController.text,
-      tempUser: tempUser,
+      tempUser: argument,
     );
   }
 

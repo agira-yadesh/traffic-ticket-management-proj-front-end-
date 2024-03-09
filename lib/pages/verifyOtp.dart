@@ -15,130 +15,122 @@ class VerifyOtp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 238, 239, 240),
+      ),
       backgroundColor: const Color.fromARGB(255, 238, 239, 240),
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                margin: const EdgeInsets.only(left: 10.0),
-                child: GestureDetector(
-                  child: IconButton(
-                    icon: const Icon(Icons.arrow_back),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => LoginPage()),
-                      );
-                    },
+          child: Container(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 10),
+                const Center(
+                  child: Text(
+                    'Verify OTP',
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20),
                   ),
                 ),
-              ),
-              const SizedBox(height: 30),
-              const Center(
-                child: Text(
-                  'Verify OTP',
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20),
-                ),
-              ),
-              const SizedBox(height: 70),
-              Column(
-                children: [
-                  const Center(
-                    child: Text(
-                      'Enter Verification Code',
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 16),
+                const SizedBox(height: 30),
+                Column(
+                  children: [
+                    const Center(
+                      child: Text(
+                        'Enter Verification Code',
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16),
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 30),
-                  MyTextField(
-                      controller: otpController,
-                      hintText: 'Enter the OTP',
-                      obscureText: false),
-                  const SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(
-                        "Didn't receive OTP?",
-                        style: TextStyle(color: Colors.black),
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      GestureDetector(
+                    const SizedBox(height: 30),
+                    MyTextField(
+                        controller: otpController,
+                        hintText: 'Enter the OTP',
+                        obscureText: false),
+                    const SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          "Didn't receive OTP?",
+                          style: TextStyle(color: Colors.black),
+                        ),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ForgetPassword()),
+                            );
+                          },
+                          child: const Text(
+                            'Resend',
+                            style: TextStyle(
+                                color: Color.fromARGB(255, 4, 33, 196),
+                                fontWeight: FontWeight.w600),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    MyButton(
                         onTap: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => ForgetPassword()),
+                                builder: (context) => NewPassword()),
                           );
                         },
-                        child: const Text(
-                          'Resend',
-                          style: TextStyle(
-                              color: Color.fromARGB(255, 4, 33, 196),
-                              fontWeight: FontWeight.w600),
+                        text: 'Verify'),
+                    const SizedBox(height: 30),
+                    const Text(
+                      'Or',
+                      style: TextStyle(
+                          color: Color.fromARGB(255, 4, 33, 196),
+                          fontWeight: FontWeight.w500,
+                          fontSize: 16),
+                    ),
+                    const SizedBox(height: 30),
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SquareTile(imagePath: 'lib/images/google.png'),
+                        SizedBox(
+                          width: 20,
                         ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 30),
-                  MyButton(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => NewPassword()),
-                        );
-                      },
-                      text: 'Verify'),
-                  const SizedBox(height: 30),
-                  const Text(
-                    'Or',
-                    style: TextStyle(
-                        color: Color.fromARGB(255, 4, 33, 196),
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16),
-                  ),
-                  const SizedBox(height: 30),
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SquareTile(imagePath: 'lib/images/google.png'),
-                      SizedBox(
-                        width: 20,
-                      ),
-                      SquareTile(imagePath: 'lib/images/facebook.png'),
-                    ],
-                  ),
-                  const SizedBox(height: 30),
-                  const Text(
-                    'Do you have an account ?',
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14),
-                  ),
-                  const SizedBox(height: 20),
-                  MyVisibleButton(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => SignupPage()),
-                        );
-                      },
-                      text: 'Sign Up')
-                ],
-              ),
-            ],
+                        SquareTile(imagePath: 'lib/images/facebook.png'),
+                      ],
+                    ),
+                    const SizedBox(height: 30),
+                    const Text(
+                      'Do you have an account ?',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14),
+                    ),
+                    const SizedBox(height: 20),
+                    MyVisibleButton(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => SignupPage()),
+                          );
+                        },
+                        text: 'Sign Up')
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

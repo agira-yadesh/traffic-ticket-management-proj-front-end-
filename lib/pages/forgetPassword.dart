@@ -15,27 +15,16 @@ class ForgetPassword extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 238, 239, 240),
+      ),
       backgroundColor: const Color.fromARGB(255, 238, 239, 240),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                margin: const EdgeInsets.only(left: 10.0),
-                child: GestureDetector(
-                  child: IconButton(
-                    icon: const Icon(Icons.arrow_back),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => LoginPage()),
-                      );
-                    },
-                  ),
-                ),
-              ),
-              const SizedBox(height: 30),
+              const SizedBox(height: 10),
               const Center(
                 child: Text(
                   'Forgot Password',
@@ -45,7 +34,7 @@ class ForgetPassword extends StatelessWidget {
                       fontSize: 20),
                 ),
               ),
-              const SizedBox(height: 70),
+              const SizedBox(height: 30),
               Column(
                 children: [
                   const Center(
@@ -87,7 +76,7 @@ class ForgetPassword extends StatelessWidget {
                         );
                       },
                       text: 'Send'),
-                  const SizedBox(height: 50),
+                  const SizedBox(height: 30),
                   const Text(
                     'Or',
                     style: TextStyle(
@@ -106,7 +95,7 @@ class ForgetPassword extends StatelessWidget {
                       SquareTile(imagePath: 'lib/images/facebook.png'),
                     ],
                   ),
-                  const SizedBox(height: 30),
+                  const SizedBox(height: 20),
                   const Text(
                     'Do you have an account ?',
                     style: TextStyle(

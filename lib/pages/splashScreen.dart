@@ -14,7 +14,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(seconds: 3), () {
+    Timer(const Duration(seconds: 5), () {
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -30,8 +30,8 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 4, 33, 196),
       body: Center(
-        child: Image.asset('lib/images/whiteLogo.png'),
-      ),
+          child:
+              Image.network('http://localhost:36243/lib/images/whiteLogo.png')),
     );
   }
 }
