@@ -14,7 +14,7 @@ class SetPasswordPage extends StatelessWidget {
   final AuthService authService = AuthService();
 
   void setPassword(BuildContext context) {
-    final User _tempUser = ModalRoute.of(context)?.settings.arguments as User;
+    final User tempUser = ModalRoute.of(context)?.settings.arguments as User;
 
     print('Set Password button tapped');
 
@@ -23,14 +23,14 @@ class SetPasswordPage extends StatelessWidget {
       otp: otpController.text,
       password: passwordController.text,
       confirmPassword: confirmpasswordController.text,
-      tempUser: _tempUser,
+      tempUser: tempUser,
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 238, 239, 240),
+      backgroundColor: const Color.fromARGB(255, 238, 239, 240),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -39,7 +39,7 @@ class SetPasswordPage extends StatelessWidget {
               Container(
                 margin: const EdgeInsets.only(left: 10.0),
                 child: IconButton(
-                  icon: Icon(Icons.arrow_back),
+                  icon: const Icon(Icons.arrow_back),
                   onPressed: () {
                     Navigator.pushReplacementNamed(context, '/signup');
                   },

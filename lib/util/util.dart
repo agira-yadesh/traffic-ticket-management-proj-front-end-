@@ -26,6 +26,7 @@ void httpErrorHandle({
       showSnackBar(context, jsonDecode(response.body)['error']);
       break;
     default:
+      print('Default case triggered for status code: ${response.statusCode}');
       showSnackBar(context, response.body);
   }
 }

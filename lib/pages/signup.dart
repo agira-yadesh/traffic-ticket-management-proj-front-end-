@@ -113,11 +113,11 @@ class SignupPage extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
+                  const Text(
                     "Already have an account?",
                     style: TextStyle(color: Colors.black),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 5,
                   ),
                   GestureDetector(
@@ -127,7 +127,7 @@ class SignupPage extends StatelessWidget {
                         MaterialPageRoute(builder: (context) => LoginPage()),
                       );
                     },
-                    child: Text(
+                    child: const Text(
                       'Login',
                       style: TextStyle(
                           color: Color.fromARGB(255, 4, 33, 196),

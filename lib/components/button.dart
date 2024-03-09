@@ -10,15 +10,15 @@ class MyButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.all(18),
-        margin: EdgeInsets.symmetric(horizontal: 25),
+        padding: const EdgeInsets.all(18),
+        margin: const EdgeInsets.symmetric(horizontal: 25),
         decoration: BoxDecoration(
-            color: Color.fromARGB(255, 4, 33, 196),
+            color: const Color.fromARGB(255, 4, 33, 196),
             borderRadius: BorderRadius.circular(8)),
         child: Center(
             child: Text(
           text,
-          style: TextStyle(
+          style: const TextStyle(
               color: Colors.white, fontWeight: FontWeight.w400, fontSize: 16),
         )),
       ),
@@ -36,16 +36,16 @@ class MyVisibleButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.all(18),
-        margin: EdgeInsets.symmetric(horizontal: 25),
+        padding: const EdgeInsets.all(18),
+        margin: const EdgeInsets.symmetric(horizontal: 25),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: Color.fromARGB(255, 4, 33, 196))),
+            border: Border.all(color: const Color.fromARGB(255, 4, 33, 196))),
         child: Center(
             child: Text(
           text,
-          style: TextStyle(
-              color: const Color.fromARGB(255, 0, 0, 0),
+          style: const TextStyle(
+              color: Color.fromARGB(255, 0, 0, 0),
               fontWeight: FontWeight.w400,
               fontSize: 16),
         )),

@@ -2,12 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:trafficticket_management/model/user.dart';
 
 class UserProvider extends ChangeNotifier {
-  User _user = User(id: '', fullname: '', email: '', mobile: '', token: '');
+  User _user = User(
+    id: '',
+    fullname: '',
+    email: '',
+    token: '',
+    mobile: '',
+    tickets: [],
+  );
 
   User get user => _user;
 
-  void setUser(String user) {
-    _user = User.fromJson(user);
+  void setUser(String userData) {
+    _user = User.fromJson(userData);
     notifyListeners();
   }
 
@@ -15,4 +22,6 @@ class UserProvider extends ChangeNotifier {
     _user = user;
     notifyListeners();
   }
+
+  // Add a method to get tickets from the user
 }

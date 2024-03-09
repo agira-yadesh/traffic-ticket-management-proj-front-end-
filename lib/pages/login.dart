@@ -4,14 +4,21 @@ import 'package:trafficticket_management/components/square_tile.dart';
 import 'package:trafficticket_management/components/textField.dart';
 import 'package:trafficticket_management/pages/forgetPassword.dart';
 import 'package:trafficticket_management/pages/signup.dart';
+import 'package:trafficticket_management/services/auth_services.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
 
-  final usernameController = TextEditingController();
+  final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final AuthService authService = AuthService();
 
-  void signUserIn() {}
+  void loginUser(BuildContext context) {
+    authService.signInUser(
+        context: context,
+        email: emailController.text,
+        password: passwordController.text);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +49,7 @@ class LoginPage extends StatelessWidget {
             ),
             const SizedBox(height: 30),
             MyTextField(
-              controller: usernameController,
+              controller: emailController,
               hintText: 'Email',
               obscureText: false,
             ),
@@ -67,7 +74,7 @@ class LoginPage extends StatelessWidget {
                       );
                     },
                     child: const Text(
-                      'Forget Password',
+                      'Forgot Password?',
                       style: TextStyle(
                           color: Color.fromARGB(255, 4, 33, 196),
                           fontWeight: FontWeight.w800),
@@ -79,7 +86,7 @@ class LoginPage extends StatelessWidget {
             const SizedBox(height: 20),
             MyButton(
               text: 'Login',
-              onTap: signUserIn,
+              onTap: () => loginUser(context),
             ),
             const SizedBox(
               height: 20,
