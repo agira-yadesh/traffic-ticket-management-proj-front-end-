@@ -6,6 +6,12 @@ class User {
   final String fullname;
   final String email;
   final String mobile;
+  final String? phone;
+  final String? contackFax;
+  // ignore: non_constant_identifier_names
+  final String? DOB;
+  final String? drivingLicense;
+  final String? company;
   final String token;
   final List<Ticket> tickets;
 
@@ -14,6 +20,12 @@ class User {
     required this.fullname,
     required this.email,
     required this.mobile,
+    this.phone,
+    this.contackFax,
+    // ignore: non_constant_identifier_names
+    this.DOB,
+    this.drivingLicense,
+    this.company,
     required this.token,
     required this.tickets,
   });
@@ -24,6 +36,11 @@ class User {
       'fullname': fullname,
       'email': email,
       'mobile': mobile,
+      'phone': phone,
+      'contackFax': contackFax,
+      'DOB': DOB,
+      'drivingLicense': drivingLicense,
+      'company': company,
       'token': token,
       'tickets': tickets.map((ticket) => ticket.toMap()).toList(),
     };
@@ -32,7 +49,9 @@ class User {
   factory User.fromMap(Map<String, dynamic> map) {
     List<Ticket> tickets = [];
     if (map['user']['Tickets'] != null) {
-      tickets = List<Ticket>.from(map['user']['Tickets'].map((ticket) => Ticket.fromMap(ticket)));
+      tickets = List<Ticket>.from(
+        map['user']['Tickets'].map((ticket) => Ticket.fromMap(ticket)),
+      );
     }
 
     return User(
@@ -40,6 +59,11 @@ class User {
       fullname: map['user']['fullname'] as String,
       email: map['user']['email'] as String,
       mobile: map['user']['mobile'] as String,
+      phone: map['user']['phone'] as String?,
+      contackFax: map['user']['contackFax'] as String?,
+      DOB: map['user']['DOB'] as String?,
+      drivingLicense: map['user']['drivingLicense'] as String?,
+      company: map['user']['company'] as String?,
       token: map['token'] as String,
       tickets: tickets,
     );
@@ -57,6 +81,7 @@ class Ticket {
   final String priority;
   final String country;
   final String policeOfficerName;
+  // ignore: non_constant_identifier_names
   final String VIN;
   final String date;
   final String imageUrl;
@@ -74,6 +99,7 @@ class Ticket {
     required this.priority,
     required this.country,
     required this.policeOfficerName,
+    // ignore: non_constant_identifier_names
     required this.VIN,
     required this.date,
     required this.imageUrl,

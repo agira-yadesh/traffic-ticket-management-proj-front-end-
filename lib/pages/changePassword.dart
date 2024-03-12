@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:trafficticket_management/components/button.dart';
 import 'package:trafficticket_management/components/textField.dart';
+import 'package:trafficticket_management/pages/login.dart';
 
 class ChangePassword extends StatelessWidget {
   ChangePassword({super.key});
@@ -20,20 +21,20 @@ class ChangePassword extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(height: 10),
-            Center(
+            const Center(
               child: Text(
                 'Change Password',
                 style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
-            Column(
+            const Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(20.0),
+                  padding: EdgeInsets.all(20.0),
                   child: SizedBox(
                     // width: 300,
                     // height: 100,
@@ -48,7 +49,7 @@ class ChangePassword extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Column(
@@ -56,27 +57,32 @@ class ChangePassword extends StatelessWidget {
                 MyTextField(
                     controller: currentPassword,
                     hintText: 'Current password',
-                    obscureText: true),
-                SizedBox(
+                    obscureText: true, enabled: true,),
+                const SizedBox(
                   height: 10,
                 ),
                 MyTextField(
                     controller: newPassword,
                     hintText: 'New password',
-                    obscureText: true),
-                SizedBox(
+                    obscureText: true, enabled: true,),
+                const SizedBox(
                   height: 10,
                 ),
                 MyTextField(
                     controller: confirmPassword,
                     hintText: 'Re-type new password',
-                    obscureText: true),
+                    obscureText: true,
+                    enabled: true),
               ],
             ),
-            Spacer(),
+            const Spacer(),
             Padding(
               padding: const EdgeInsets.all(20.0),
-              child: MyButton(onTap: () {}, text: 'Change Password'),
+              child: MyButton(
+                  onTap: () {
+                    
+                  },
+                  text: 'Change Password'),
             )
           ],
         ),

@@ -28,10 +28,18 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     print('SplashScreen is rebuilt.');
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 4, 33, 196),
-      body: Center(
-          child:
-              Image.network('http://localhost:36243/lib/images/whiteLogo.png')),
+      // backgroundColor: const Color.fromARGB(255, 4, 33, 196),
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(colors: [
+            Color.fromARGB(255, 4, 20, 114),
+            Color.fromARGB(255, 0, 38, 255),
+          ], begin: Alignment.topLeft, end: Alignment.bottomRight),
+        ),
+        child: Center(
+          child: Image.network('lib/images/whiteLogo.png'),
+        ),
+      ),
     );
   }
 }

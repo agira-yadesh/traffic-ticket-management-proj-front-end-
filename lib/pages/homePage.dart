@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:trafficticket_management/pages/changePassword.dart';
 import 'package:trafficticket_management/pages/success.dart';
+import 'package:trafficticket_management/pages/viewProfile.dart';
 import 'package:trafficticket_management/providers/user_provider.dart';
+import 'package:trafficticket_management/services/auth_services.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -13,6 +15,8 @@ class HomePage extends StatefulWidget {
 }
 
 class UserDrawerHeader extends StatelessWidget {
+  const UserDrawerHeader({super.key});
+
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<UserProvider>(context).user;
@@ -22,20 +26,20 @@ class UserDrawerHeader extends StatelessWidget {
       child: user != null
           ? Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(18.0),
-                  child: const Icon(
+                const Padding(
+                  padding: EdgeInsets.all(18.0),
+                  child: Icon(
                     Icons.waving_hand_rounded,
                     color: Colors.amber,
                     size: 48,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Text(
                   user.fullname,
-                  style: TextStyle(
+                  style: const TextStyle(
                       color: Colors.white,
                       fontSize: 26,
                       fontWeight: FontWeight.bold),
@@ -49,6 +53,10 @@ class UserDrawerHeader extends StatelessWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  void signOutUser(BuildContext context) {
+    AuthService().signOut(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<UserProvider>(context).user;
@@ -56,67 +64,106 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 238, 239, 240),
       appBar: AppBar(
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.notifications_sharp,
-              color: Color.fromARGB(255, 4, 25, 145),
-              size: 32,
+        leading: Builder(builder: (BuildContext context) {
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: IconButton(
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+              icon: const Icon(
+                Icons.menu,
+                size: 40,
+                color: Color.fromARGB(255, 4, 25, 145),
+              ),
             ),
-          ),
-          IconButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const SuccessProfile(),
-                ),
-              );
-            },
-            icon: const Icon(
-              Icons.person,
-              color: Color.fromARGB(255, 4, 25, 145),
-              size: 32,
+          );
+        }),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.notifications_sharp,
+                color: Color.fromARGB(255, 4, 25, 145),
+                size: 32,
+              ),
             ),
           ),
         ],
         backgroundColor: const Color.fromARGB(255, 238, 239, 240),
       ),
       drawer: Drawer(
-        backgroundColor: Color.fromARGB(255, 4, 25, 145),
+        width: 320,
+        backgroundColor: const Color.fromARGB(255, 4, 25, 145),
         child: Column(
           children: [
-            UserDrawerHeader(),
-            SizedBox(
+            const UserDrawerHeader(),
+            const SizedBox(
               height: 20,
             ),
             ListTile(
-              leading: Icon(Icons.home),
-              title: Text('Home'),
+              leading: const Icon(Icons.home),
+              title: const Text(
+                'H o m e',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+              ),
               onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => HomePage(),
+                    builder: (context) => const HomePage(),
                   ),
                 );
               },
-              iconColor: const Color.fromARGB(153, 255, 255, 255),
-              textColor: const Color.fromARGB(153, 255, 255, 255),
+              iconColor: const Color.fromARGB(206, 255, 255, 255),
+              textColor: const Color.fromARGB(206, 255, 255, 255),
+            ),
+            const SizedBox(
+              height: 10,
             ),
             ListTile(
-              leading: Icon(Icons.history),
-              title: Text('History'),
-              iconColor: const Color.fromARGB(153, 255, 255, 255),
-              textColor: const Color.fromARGB(153, 255, 255, 255),
+              leading: const Icon(Icons.person_2),
+              title: const Text(
+                'P r o f i l e',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ViewProfile(),
+                  ),
+                );
+              },
+              iconColor: const Color.fromARGB(206, 255, 255, 255),
+              textColor: const Color.fromARGB(206, 255, 255, 255),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            ListTile(
+              leading: const Icon(Icons.history),
+              title: const Text(
+                'H i s t o r y',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+              ),
+              iconColor: const Color.fromARGB(206, 255, 255, 255),
+              textColor: const Color.fromARGB(206, 255, 255, 255),
               onTap: () {},
             ),
+            const SizedBox(
+              height: 10,
+            ),
             ListTile(
-              leading: Icon(Icons.lock),
-              title: Text('Change Password'),
-              iconColor: const Color.fromARGB(153, 255, 255, 255),
-              textColor: const Color.fromARGB(153, 255, 255, 255),
+              leading: const Icon(Icons.lock),
+              title: const Text(
+                'C h a n g e  P a s s w o r d',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+              ),
+              iconColor: const Color.fromARGB(206, 255, 255, 255),
+              textColor: const Color.fromARGB(206, 255, 255, 255),
               onTap: () {
                 Navigator.push(
                   context,
@@ -126,33 +173,57 @@ class _HomePageState extends State<HomePage> {
                 );
               },
             ),
-            ListTile(
-              leading: Icon(Icons.assistant),
-              title: Text('Support'),
-              onTap: () {},
-              iconColor: const Color.fromARGB(153, 255, 255, 255),
-              textColor: const Color.fromARGB(153, 255, 255, 255),
+            const SizedBox(
+              height: 10,
             ),
             ListTile(
-              leading: Icon(Icons.document_scanner),
-              title: Text('Terms & Conditions'),
-              iconColor: const Color.fromARGB(153, 255, 255, 255),
-              textColor: const Color.fromARGB(153, 255, 255, 255),
+              leading: const Icon(Icons.assistant),
+              title: const Text(
+                'S u p p o r t',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+              ),
               onTap: () {},
+              iconColor: const Color.fromARGB(206, 255, 255, 255),
+              textColor: const Color.fromARGB(206, 255, 255, 255),
+            ),
+            const SizedBox(
+              height: 10,
             ),
             ListTile(
-              leading: Icon(Icons.delete_sharp),
-              title: Text('Delete Acount'),
-              iconColor: const Color.fromARGB(153, 255, 255, 255),
-              textColor: const Color.fromARGB(153, 255, 255, 255),
+              leading: const Icon(Icons.document_scanner),
+              title: const Text(
+                'T e r m s  &  C o n d i t i o n s',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+              ),
+              iconColor: const Color.fromARGB(206, 255, 255, 255),
+              textColor: const Color.fromARGB(206, 255, 255, 255),
               onTap: () {},
             ),
+            const SizedBox(
+              height: 10,
+            ),
             ListTile(
-              leading: Icon(Icons.exit_to_app),
-              title: Text('Logout'),
-              iconColor: const Color.fromARGB(153, 255, 255, 255),
-              textColor: const Color.fromARGB(153, 255, 255, 255),
+              leading: const Icon(Icons.delete_sharp),
+              title: const Text(
+                'D e l e t e  A c o u n t',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+              ),
+              iconColor: const Color.fromARGB(206, 255, 255, 255),
+              textColor: const Color.fromARGB(206, 255, 255, 255),
               onTap: () {},
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            ListTile(
+              leading: const Icon(Icons.exit_to_app),
+              title: const Text(
+                'L o g o u t',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+              ),
+              iconColor: const Color.fromARGB(206, 255, 255, 255),
+              textColor: const Color.fromARGB(206, 255, 255, 255),
+              onTap: () => signOutUser(context),
             ),
           ],
         ),
@@ -161,28 +232,10 @@ class _HomePageState extends State<HomePage> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 10.0, bottom: 10.0),
-                child: Row(
-                  children: [
-                    const Icon(
-                      Icons.waving_hand,
-                      color: Colors.amber,
-                    ),
-                    const SizedBox(
-                      width: 20,
-                    ),
-                    Text(
-                      user.fullname,
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.black54,
-                      ),
-                    ),
-                  ],
-                ),
+              const SizedBox(
+                height: 20,
               ),
+
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Stack(

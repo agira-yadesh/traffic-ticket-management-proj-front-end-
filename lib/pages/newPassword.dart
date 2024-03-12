@@ -63,7 +63,7 @@ class NewPassword extends StatelessWidget {
                 MyTextField(
                     controller: newPasswordController,
                     hintText: 'New Password',
-                    obscureText: true),
+                    obscureText: true, enabled: true,),
                 const SizedBox(
                   height: 20,
                 ),
@@ -83,11 +83,18 @@ class NewPassword extends StatelessWidget {
                 MyTextField(
                     controller: confirmPasswordController,
                     hintText: 'Confirm Password',
-                    obscureText: true),
+                    obscureText: true, enabled: true,),
                 const SizedBox(
                   height: 50,
                 ),
-                MyButton(onTap: () {}, text: 'Save'),
+                MyButton(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => LoginPage()),
+                      );
+                    },
+                    text: 'Save'),
               ],
             )
           ],

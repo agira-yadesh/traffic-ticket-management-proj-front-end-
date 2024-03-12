@@ -59,17 +59,17 @@ class SetPasswordPage extends StatelessWidget {
               MyTextField(
                   controller: otpController,
                   hintText: 'Enter OTP received in your email',
-                  obscureText: false),
+                  obscureText: false, enabled: true,),
               const SizedBox(height: 20),
               MyTextField(
                   controller: passwordController,
                   hintText: 'password',
-                  obscureText: true),
+                  obscureText: true, enabled: true,),
               const SizedBox(height: 20),
               MyTextField(
                   controller: confirmpasswordController,
                   hintText: 'confirm password',
-                  obscureText: true),
+                  obscureText: true, enabled: true,),
               const SizedBox(height: 20),
               MyButton(onTap: () => setPassword(context), text: 'Set Password')
             ],

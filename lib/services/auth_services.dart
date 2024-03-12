@@ -98,49 +98,10 @@ class AuthService {
         },
       );
     } catch (e) {
+      // ignore: use_build_context_synchronously
       showSnackBar(context, e.toString());
     }
   }
-
-  // void signInUser({
-  //   required BuildContext context,
-  //   required String email,
-  //   required String password,
-  // }) async {
-  //   final navigator = Navigator.of(context);
-
-  //   http.post(
-  //     Uri.parse('${Constants.uri}/login'),
-  //     body: jsonEncode({
-  //       'email': email,
-  //       'password': password,
-  //     }),
-  //     headers: <String, String>{
-  //       'Content-Type': 'application/json; charset=UTF-8',
-  //     },
-  //   ).then((http.Response res) {
-  //     httpErrorHandle(
-  //       response: res,
-  //       context: context,
-  //       onSuccess: () async {
-  //         showSnackBar(context, 'Account Created');
-
-  //         SharedPreferences prefs = await SharedPreferences.getInstance();
-  //         await prefs.setString('x-auth-token', jsonDecode(res.body)['token']);
-  //         await prefs.setString('user_data', res.body);
-
-  //         navigator.pushAndRemoveUntil(
-  //           MaterialPageRoute(
-  //             builder: (context) => const HomePage(),
-  //           ),
-  //           (route) => false,
-  //         );
-  //       },
-  //     );
-  //   }).catchError((e) {
-  //     showSnackBar(context, e.toString());
-  //   });
-  // }
 
   void signInUser({
     required BuildContext context,
@@ -220,5 +181,16 @@ class AuthService {
       // ignore: use_build_context_synchronously
       showSnackBar(context, e.toString());
     }
+  }
+
+  void signOut(BuildContext context) async {
+    final navigator = Navigator.of(context);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('x-auth-token', '');
+    navigator.pushAndRemoveUntil(
+        MaterialPageRoute(
+          builder: (context) => LoginPage(),
+        ),
+        (route) => false);
   }
 }

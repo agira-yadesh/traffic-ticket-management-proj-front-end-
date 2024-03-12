@@ -51,17 +51,17 @@ class SignupPage extends StatelessWidget {
               MyTextField(
                   controller: fullnameController,
                   hintText: 'Full Name',
-                  obscureText: false),
+                  obscureText: false, enabled: true,),
               const SizedBox(height: 20),
               MyTextField(
                   controller: emailController,
                   hintText: 'Email',
-                  obscureText: false),
+                  obscureText: false, enabled: true,),
               const SizedBox(height: 20),
               MyTextField(
                   controller: mobileController,
                   hintText: 'Mobile',
-                  obscureText: false),
+                  obscureText: false, enabled: true,),
               const SizedBox(height: 20),
               MyButton(
                 text: 'Sign Up',

@@ -49,9 +49,11 @@ class VerifyOtp extends StatelessWidget {
                     ),
                     const SizedBox(height: 30),
                     MyTextField(
-                        controller: otpController,
-                        hintText: 'Enter the OTP',
-                        obscureText: false),
+                      controller: otpController,
+                      hintText: 'Enter the OTP',
+                      obscureText: false,
+                      enabled: true,
+                    ),
                     const SizedBox(height: 20),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,

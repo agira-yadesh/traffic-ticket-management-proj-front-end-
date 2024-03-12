@@ -23,5 +23,5 @@ class UserProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // Add a method to get tickets from the user
+
 }
