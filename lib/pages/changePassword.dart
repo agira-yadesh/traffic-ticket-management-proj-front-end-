@@ -3,12 +3,23 @@ import 'package:flutter/widgets.dart';
 import 'package:trafficticket_management/components/button.dart';
 import 'package:trafficticket_management/components/textField.dart';
 import 'package:trafficticket_management/pages/login.dart';
+import 'package:trafficticket_management/services/auth_services.dart';
 
 class ChangePassword extends StatelessWidget {
   ChangePassword({super.key});
   final currentPassword = TextEditingController();
   final newPassword = TextEditingController();
   final confirmPassword = TextEditingController();
+
+  final AuthService authService = AuthService();
+
+  void changePassword(BuildContext context) {
+    authService.changePassword(
+        context: context,
+        oldPassword: currentPassword.text,
+        newPassword: newPassword.text,
+        confirmPassword: confirmPassword.text);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,33 +66,39 @@ class ChangePassword extends StatelessWidget {
             Column(
               children: [
                 MyTextField(
-                    controller: currentPassword,
-                    hintText: 'Current password',
-                    obscureText: true, enabled: true,),
+                  controller: currentPassword,
+                  hintText: 'Current password',
+                  obscureText: true,
+                  enabled: true,
+                  label: '',
+                ),
                 const SizedBox(
                   height: 10,
                 ),
                 MyTextField(
-                    controller: newPassword,
-                    hintText: 'New password',
-                    obscureText: true, enabled: true,),
+                  controller: newPassword,
+                  hintText: 'New password',
+                  obscureText: true,
+                  enabled: true,
+                  label: '',
+                ),
                 const SizedBox(
                   height: 10,
                 ),
                 MyTextField(
-                    controller: confirmPassword,
-                    hintText: 'Re-type new password',
-                    obscureText: true,
-                    enabled: true),
+                  controller: confirmPassword,
+                  hintText: 'Re-type new password',
+                  obscureText: true,
+                  enabled: true,
+                  label: '',
+                ),
               ],
             ),
             const Spacer(),
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: MyButton(
-                  onTap: () {
-                    
-                  },
+                  onTap: () => changePassword(context),
                   text: 'Change Password'),
             )
           ],

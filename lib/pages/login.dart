@@ -51,13 +51,13 @@ class LoginPage extends StatelessWidget {
             MyTextField(
               controller: emailController,
               hintText: 'Email',
-              obscureText: false, enabled: true,
+              obscureText: false, enabled: true, label: '',
             ),
             const SizedBox(height: 20),
             MyTextField(
               controller: passwordController,
               hintText: 'Password',
-              obscureText: true, enabled: true,
+              obscureText: true, enabled: true, label: '',
             ),
             const SizedBox(height: 20),
             Padding(

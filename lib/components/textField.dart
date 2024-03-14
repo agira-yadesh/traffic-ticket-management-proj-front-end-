@@ -5,12 +5,15 @@ class MyTextField extends StatelessWidget {
   final String hintText;
   final bool obscureText;
   final bool enabled;
+  final String label;
 
   const MyTextField({
     super.key,
     required this.controller,
     required this.hintText,
-    required this.obscureText, required this.enabled,
+    required this.obscureText,
+    required this.enabled,
+    required this.label,
   });
 
   @override
@@ -21,10 +24,16 @@ class MyTextField extends StatelessWidget {
       height: 50.0,
       child: Center(
         child: TextField(
+          style: TextStyle(fontSize: 18),
           controller: controller,
           obscureText: obscureText,
           enabled: enabled,
           decoration: InputDecoration(
+              labelText: label,
+              labelStyle: const TextStyle(
+                  color: Color.fromARGB(255, 2, 25, 66),
+                  fontSize: 20,
+                  fontWeight: FontWeight.w700),
               enabledBorder: const OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.white),
               ),
@@ -34,6 +43,12 @@ class MyTextField extends StatelessWidget {
               fillColor: Colors.white,
               filled: true,
               hintText: hintText,
+              floatingLabelBehavior: FloatingLabelBehavior.always,
+              disabledBorder: const OutlineInputBorder(
+                borderSide: BorderSide(
+                    color: Color.fromARGB(255, 255, 255,
+                        255)), // Customize the border color for disabled state
+              ),
               contentPadding:
                   const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
               hintStyle: TextStyle(color: Colors.grey[500])),

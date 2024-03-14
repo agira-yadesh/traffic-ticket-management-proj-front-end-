@@ -3,12 +3,27 @@ import 'package:provider/provider.dart';
 import 'package:trafficticket_management/components/button.dart';
 import 'package:trafficticket_management/pages/editProfile.dart';
 import 'package:trafficticket_management/providers/user_provider.dart';
+import 'package:intl/intl.dart';
 
 class ViewProfile extends StatelessWidget {
-  const ViewProfile({super.key});
+  final Map<String, dynamic> userData;
+  const ViewProfile({super.key, required this.userData});
 
   @override
   Widget build(BuildContext context) {
+    final email = userData['user']['email'];
+    final phone = userData['user']['phone'];
+    final fax = userData['user']['fax'];
+    final fullname = userData['user']['fullName'];
+
+    final mobile = userData['user']['mobile'];
+    String? dobString = userData['user']['dob'];
+    String formattedDob = dobString != null
+        ? DateFormat('MMM dd, yyyy').format(DateTime.parse(dobString))
+        : '-';
+
+    final dl = userData['user']['dl'];
+    final company = userData['user']['company'];
     final user = Provider.of<UserProvider>(context).user;
     String fullName = user.fullname;
 
@@ -19,6 +34,7 @@ class ViewProfile extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Profile'),
         elevation: 0,
+        scrolledUnderElevation: 0,
         backgroundColor: const Color.fromARGB(255, 238, 239, 240),
       ),
       backgroundColor: const Color.fromARGB(255, 238, 239, 240),
@@ -81,7 +97,7 @@ class ViewProfile extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            user.fullname,
+                            fullname,
                             style: const TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.w700),
                           ),
@@ -106,7 +122,7 @@ class ViewProfile extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            user.email,
+                            email,
                             style: const TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.w700),
                           ),
@@ -131,7 +147,7 @@ class ViewProfile extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            user.mobile,
+                            mobile,
                             style: const TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.w700),
                           ),
@@ -156,7 +172,7 @@ class ViewProfile extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            user.phone ?? '-',
+                            phone ?? '-',
                             style: const TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.w700),
                           ),
@@ -181,7 +197,7 @@ class ViewProfile extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            user.contackFax ?? '-',
+                            fax ?? '-',
                             style: const TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.w700),
                           ),
@@ -206,7 +222,7 @@ class ViewProfile extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            user.DOB ?? '-',
+                            formattedDob ?? '-',
                             style: const TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.w700),
                           ),
@@ -231,7 +247,7 @@ class ViewProfile extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            user.drivingLicense ?? '-',
+                            dl ?? '-',
                             style: const TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.w700),
                           ),
@@ -253,7 +269,7 @@ class ViewProfile extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            user.company ?? '-',
+                            company ?? '-',
                             style: const TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.w700),
                           ),
@@ -268,7 +284,7 @@ class ViewProfile extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => EditProfile(),
+                        builder: (context) => EditProfile(userData: userData),
                       ),
                     );
                   },

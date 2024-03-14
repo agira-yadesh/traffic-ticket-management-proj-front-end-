@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -12,6 +14,8 @@ import 'package:trafficticket_management/pages/homePage.dart';
 import 'package:trafficticket_management/pages/login.dart';
 
 import 'package:trafficticket_management/pages/setPassword.dart';
+import 'package:trafficticket_management/pages/success.dart';
+import 'package:trafficticket_management/pages/viewProfile.dart';
 import 'package:trafficticket_management/providers/user_provider.dart';
 import 'package:trafficticket_management/util/constants.dart';
 import 'package:trafficticket_management/util/util.dart';
@@ -192,5 +196,133 @@ class AuthService {
           builder: (context) => LoginPage(),
         ),
         (route) => false);
+  }
+
+  void changePassword({
+    required BuildContext context,
+    required String oldPassword,
+    required String newPassword,
+    required String confirmPassword,
+  }) async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? token = prefs.getString('x-auth-token');
+
+      http.Response res = await http.put(
+        Uri.parse('${Constants.uri}/changePassword'),
+        body: {
+          'oldPassword': oldPassword,
+          'newPassword': newPassword,
+          'confirmPassword': confirmPassword,
+        },
+        headers: <String, String>{
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'x-auth-token': token!
+        },
+      );
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          showSnackBar(context, 'Password Changed');
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => HomePage(),
+            ),
+          );
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
+
+  void editProfile({
+    required BuildContext context,
+    required String DOB,
+    required String DL,
+    required String phone,
+    required String fax,
+    required String company,
+  }) async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? token = prefs.getString('x-auth-token');
+      print(company);
+
+      http.Response res = await http.put(
+        Uri.parse('${Constants.uri}/editProfile'),
+        body: {
+          'dateOfBirth': DOB,
+          'drivingLicense': DL,
+          'company': company,
+          'phone': phone,
+          'fax': fax,
+        },
+        headers: <String, String>{
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'x-auth-token': token!
+        },
+      );
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          // showSnackBar(context, 'Profile Updated');
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SuccessProfile(),
+            ),
+          );
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
+
+  void viewProfile({
+    required BuildContext context,
+  }) async {
+    try {
+      var userProvider = Provider.of<UserProvider>(context, listen: false);
+
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? token = prefs.getString('x-auth-token');
+
+      http.Response res = await http.get(
+        Uri.parse('${Constants.uri}/profile'),
+        headers: <String, String>{
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'x-auth-token': token!
+        },
+      );
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          print(res.body);
+          var userData = res.body;
+          print(userData);
+          print('hiii');
+
+          // showSnackBar(context, 'Profile');
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) =>
+                  ViewProfile(userData: json.decode(userData)),
+            ),
+          );
+        },
+      );
+    } catch (e) {
+      print(e);
+      showSnackBar(context, e.toString());
+    }
   }
 }

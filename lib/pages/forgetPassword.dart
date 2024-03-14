@@ -50,7 +50,7 @@ class ForgetPassword extends StatelessWidget {
                   MyTextField(
                       controller: emailController,
                       hintText: 'example@gmail.com',
-                      obscureText: false, enabled: true,),
+                      obscureText: false, enabled: true, label: '',),
                   const SizedBox(height: 20),
                   GestureDetector(
                     onTap: () {

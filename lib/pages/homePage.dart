@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:trafficticket_management/pages/changePassword.dart';
 import 'package:trafficticket_management/pages/success.dart';
+import 'package:trafficticket_management/pages/terms.dart';
 import 'package:trafficticket_management/pages/viewProfile.dart';
 import 'package:trafficticket_management/providers/user_provider.dart';
 import 'package:trafficticket_management/services/auth_services.dart';
@@ -53,8 +54,15 @@ class UserDrawerHeader extends StatelessWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final AuthService authService = AuthService();
+
   void signOutUser(BuildContext context) {
     AuthService().signOut(context);
+  }
+
+  void userProfile(BuildContext context) {
+    print('hi');
+    authService.viewProfile(context: context);
   }
 
   @override
@@ -130,12 +138,7 @@ class _HomePageState extends State<HomePage> {
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
               ),
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const ViewProfile(),
-                  ),
-                );
+                userProfile(context);
               },
               iconColor: const Color.fromARGB(206, 255, 255, 255),
               textColor: const Color.fromARGB(206, 255, 255, 255),
@@ -197,7 +200,10 @@ class _HomePageState extends State<HomePage> {
               ),
               iconColor: const Color.fromARGB(206, 255, 255, 255),
               textColor: const Color.fromARGB(206, 255, 255, 255),
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => Terms()));
+              },
             ),
             const SizedBox(
               height: 10,

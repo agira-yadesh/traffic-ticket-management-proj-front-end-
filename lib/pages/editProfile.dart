@@ -1,35 +1,69 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:trafficticket_management/components/button.dart';
 import 'package:trafficticket_management/components/textField.dart';
 import 'package:trafficticket_management/pages/success.dart';
 import 'package:trafficticket_management/providers/user_provider.dart';
+import 'package:trafficticket_management/services/auth_services.dart';
 
 class EditProfile extends StatelessWidget {
-  EditProfile({super.key});
+  final Map<String, dynamic> userData;
+  EditProfile({super.key, required this.userData});
+
+  final AuthService authService = AuthService();
 
   @override
   Widget build(BuildContext context) {
+    final email = userData['user']['email'];
+    final phone = userData['user']['phone'];
+    final fax = userData['user']['fax'];
+    final fullname = userData['user']['fullName'];
+
+    final mobile = userData['user']['mobile'];
+    String? dobString = userData['user']['dob'];
+    String formattedDob = dobString != null
+        ? DateFormat('yyyy/MM/dd').format(DateTime.parse(dobString))
+        : '-';
+
+    final dl = userData['user']['dl'];
+    final company = userData['user']['company'];
+
     final user = Provider.of<UserProvider>(context).user;
     String fullName = user.fullname;
-    final nameController = TextEditingController(text: fullName);
-    String email = user.email;
+
+    // final user = Provider.of<UserProvider>(context).user;
+    // String fullName = user.fullname;
+    final nameController = TextEditingController(text: fullname);
+    // String email = user.email;
     final emailController = TextEditingController(text: email);
-    String mobile = user.mobile;
+    // String mobile = user.mobile;
     final mobileController = TextEditingController(text: mobile);
-    String? phone = user.phone;
+    // String? phone = user.phone;
     final phoneController = TextEditingController(text: phone);
-    String? fax = user.contackFax;
+    // String? fax = user.contackFax;
     final faxController = TextEditingController(text: fax);
-    String? dob = user.DOB;
-    final dobController = TextEditingController(text: dob);
-    String? dl = user.drivingLicense;
+    // String? dob = user.DOB;
+    final dobController = TextEditingController(text: formattedDob);
+    // String? dl = user.drivingLicense;
     final dlController = TextEditingController(text: dl);
-    String? company = user.company;
+    // String? company = user.company;
     final companyController = TextEditingController(text: company);
 
     List<String> words = fullName.split(' ');
     String profile = words[0][0] + words[1][0];
+
+    void editProfile(BuildContext context) {
+      authService.editProfile(
+          context: context,
+          DOB: dobController.text,
+          DL: dlController.text,
+          company: companyController.text,
+          phone: phoneController.text,
+          fax: faxController.text);
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Edit Profile'),
@@ -42,31 +76,34 @@ class EditProfile extends StatelessWidget {
           child: Column(
             children: [
               Center(
-                child: Stack(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Container(
-                        width: 120,
-                        height: 120,
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Color.fromARGB(255, 4, 25, 145),
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Stack(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Container(
+                          width: 100,
+                          height: 100,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Color.fromARGB(255, 4, 25, 145),
+                          ),
                         ),
                       ),
-                    ),
-                    Positioned.fill(
-                      child: Center(
-                        child: Text(
-                          profile.toUpperCase(),
-                          style: const TextStyle(
-                              fontSize: 42,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white),
+                      Positioned.fill(
+                        child: Center(
+                          child: Text(
+                            profile.toUpperCase(),
+                            style: const TextStyle(
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
               MyTextField(
@@ -74,74 +111,86 @@ class EditProfile extends StatelessWidget {
                 hintText: '',
                 obscureText: false,
                 enabled: false,
+                label: 'Full Name',
               ),
               const SizedBox(
                 height: 10,
               ),
               MyTextField(
-                  controller: emailController,
-                  hintText: '',
-                  obscureText: false,
-                  enabled: false),
+                controller: emailController,
+                hintText: '',
+                obscureText: false,
+                enabled: false,
+                label: 'Email',
+              ),
               const SizedBox(
                 height: 10,
               ),
               MyTextField(
-                  controller: mobileController,
-                  hintText: '',
-                  obscureText: false,
-                  enabled: false),
+                controller: mobileController,
+                hintText: '',
+                obscureText: false,
+                enabled: false,
+                label: 'Mobile',
+              ),
               const SizedBox(
                 height: 10,
               ),
               MyTextField(
-                  controller: phoneController,
-                  hintText: 'phone',
-                  obscureText: false,
-                  enabled: true),
+                controller: phoneController,
+                hintText: 'phone',
+                obscureText: false,
+                enabled: true,
+                label: 'Phone',
+              ),
               const SizedBox(
                 height: 10,
               ),
               MyTextField(
-                  controller: faxController,
-                  hintText: 'Fax',
-                  obscureText: false,
-                  enabled: true),
+                controller: faxController,
+                hintText: 'Fax',
+                obscureText: false,
+                enabled: true,
+                label: 'Fax',
+              ),
               const SizedBox(
                 height: 10,
               ),
               MyTextField(
-                  controller: dobController,
-                  hintText: 'Date of Birth',
-                  obscureText: false,
-                  enabled: true),
+                controller: dobController,
+                hintText: 'YYYY-MM-DD',
+                obscureText: false,
+                enabled: true,
+                label: 'Date Of Birth',
+              ),
               const SizedBox(
                 height: 10,
               ),
               MyTextField(
-                  controller: dlController,
-                  hintText: 'Driving License',
-                  obscureText: false,
-                  enabled: true),
+                controller: dlController,
+                hintText: 'Driving License',
+                obscureText: false,
+                enabled: true,
+                label: 'Driving License',
+              ),
               const SizedBox(
                 height: 10,
               ),
               MyTextField(
-                  controller: companyController,
-                  hintText: 'Company Name',
-                  obscureText: false,
-                  enabled: true),
+                controller: companyController,
+                hintText: 'Company Name',
+                obscureText: false,
+                enabled: true,
+                label: 'Company',
+              ),
               const SizedBox(
                 height: 20,
               ),
-              MyButton(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const SuccessProfile()));
-                  },
-                  text: "Update"),
+              Positioned(
+                bottom: 30,
+                child:
+                    MyButton(onTap: () => editProfile(context), text: "Update"),
+              ),
             ],
           ),
         ),

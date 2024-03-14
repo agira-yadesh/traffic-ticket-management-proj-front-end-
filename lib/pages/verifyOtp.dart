@@ -53,6 +53,7 @@ class VerifyOtp extends StatelessWidget {
                       hintText: 'Enter the OTP',
                       obscureText: false,
                       enabled: true,
+                      label: '',
                     ),
                     const SizedBox(height: 20),
                     Row(
