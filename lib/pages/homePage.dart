@@ -253,7 +253,7 @@ class _HomePageState extends State<HomePage> {
                         opacity: 0.9,
                         child: ColorFiltered(
                           colorFilter: ColorFilter.mode(
-                            Colors.black.withOpacity(0.5),
+                            Colors.black.withOpacity(0.4),
                             BlendMode.srcOver,
                           ),
                           child: Image.asset(

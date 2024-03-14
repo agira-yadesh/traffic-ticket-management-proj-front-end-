@@ -5,12 +5,16 @@ import 'package:trafficticket_management/components/textField.dart';
 import 'package:trafficticket_management/pages/login.dart';
 import 'package:trafficticket_management/pages/signup.dart';
 import 'package:trafficticket_management/pages/verifyOtp.dart';
+import 'package:trafficticket_management/services/auth_services.dart';
 
 class ForgetPassword extends StatelessWidget {
   ForgetPassword({super.key});
+  final AuthService authService = AuthService();
 
   final emailController = TextEditingController();
-  void forgotPassword() {}
+  void forgotPassword(BuildContext context) {
+    authService.forgotPassword(context: context, email: emailController.text);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,9 +52,12 @@ class ForgetPassword extends StatelessWidget {
                   ),
                   const SizedBox(height: 30),
                   MyTextField(
-                      controller: emailController,
-                      hintText: 'example@gmail.com',
-                      obscureText: false, enabled: true, label: '',),
+                    controller: emailController,
+                    hintText: 'example@gmail.com',
+                    obscureText: false,
+                    enabled: true,
+                    label: '',
+                  ),
                   const SizedBox(height: 20),
                   GestureDetector(
                     onTap: () {
@@ -70,10 +77,7 @@ class ForgetPassword extends StatelessWidget {
                   const SizedBox(height: 30),
                   MyButton(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => VerifyOtp()),
-                        );
+                        forgotPassword(context);
                       },
                       text: 'Send'),
                   const SizedBox(height: 30),

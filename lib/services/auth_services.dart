@@ -12,9 +12,11 @@ import 'package:trafficticket_management/model/user.dart';
 import 'package:http/http.dart' as http;
 import 'package:trafficticket_management/pages/homePage.dart';
 import 'package:trafficticket_management/pages/login.dart';
+import 'package:trafficticket_management/pages/newPassword.dart';
 
 import 'package:trafficticket_management/pages/setPassword.dart';
 import 'package:trafficticket_management/pages/success.dart';
+import 'package:trafficticket_management/pages/verifyOtp.dart';
 import 'package:trafficticket_management/pages/viewProfile.dart';
 import 'package:trafficticket_management/providers/user_provider.dart';
 import 'package:trafficticket_management/util/constants.dart';
@@ -322,6 +324,115 @@ class AuthService {
       );
     } catch (e) {
       print(e);
+      showSnackBar(context, e.toString());
+    }
+  }
+
+  void forgotPassword({
+    required BuildContext context,
+    required String email,
+  }) async {
+    try {
+      http.Response res = await http.post(
+        Uri.parse('${Constants.uri}/forgetPassword'),
+        body: {
+          'email': email,
+        },
+        headers: <String, String>{
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+      );
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () async {
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          await prefs.setString('x-auth-token', jsonDecode(res.body)['token']);
+
+          showSnackBar(context, 'Enter Otp');
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => VerifyOtp(),
+            ),
+          );
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
+
+  void verifYOtp({
+    required BuildContext context,
+    required String otp,
+  }) async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? token = prefs.getString('x-auth-token');
+
+      http.Response res = await http.put(
+        Uri.parse('${Constants.uri}/verifyOTP'),
+        body: {
+          'otp': otp,
+        },
+        headers: <String, String>{
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'x-auth-token': token!
+        },
+      );
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          showSnackBar(context, 'Set New Password');
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => NewPassword(),
+            ),
+          );
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
+
+  void newPassword({
+    required BuildContext context,
+    required String newPassword,
+    required String confirmPassword,
+  }) async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? token = prefs.getString('x-auth-token');
+      http.Response res = await http.put(
+        Uri.parse('${Constants.uri}/resetPassword'),
+        body: {
+          'password': newPassword,
+          'confirmPassword': confirmPassword,
+        },
+        headers: <String, String>{
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'x-auth-token': token!
+        },
+      );
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          showSnackBar(context, 'Password Changed');
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => LoginPage(),
+            ),
+          );
+        },
+      );
+    } catch (e) {
       showSnackBar(context, e.toString());
     }
   }

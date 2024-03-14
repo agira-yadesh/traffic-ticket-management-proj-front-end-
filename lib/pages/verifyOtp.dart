@@ -6,12 +6,17 @@ import 'package:trafficticket_management/pages/forgetPassword.dart';
 import 'package:trafficticket_management/pages/login.dart';
 import 'package:trafficticket_management/pages/newPassword.dart';
 import 'package:trafficticket_management/pages/signup.dart';
+import 'package:trafficticket_management/services/auth_services.dart';
 
 class VerifyOtp extends StatelessWidget {
   VerifyOtp({super.key});
+  final AuthService authService = AuthService();
 
   final otpController = TextEditingController();
-  void verifyOtp() {}
+  void verifyOtp(BuildContext context) {
+    authService.verifYOtp(context: context, otp: otpController.text);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,11 +91,7 @@ class VerifyOtp extends StatelessWidget {
                     const SizedBox(height: 20),
                     MyButton(
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => NewPassword()),
-                          );
+                          verifyOtp(context);
                         },
                         text: 'Verify'),
                     const SizedBox(height: 30),

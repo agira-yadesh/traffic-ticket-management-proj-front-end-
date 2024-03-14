@@ -3,12 +3,22 @@ import 'package:flutter/widgets.dart';
 import 'package:trafficticket_management/components/button.dart';
 import 'package:trafficticket_management/components/textField.dart';
 import 'package:trafficticket_management/pages/login.dart';
+import 'package:trafficticket_management/services/auth_services.dart';
 
 class NewPassword extends StatelessWidget {
   NewPassword({super.key});
+  final AuthService authService = AuthService();
+
   final newPasswordController = TextEditingController();
 
   final confirmPasswordController = TextEditingController();
+
+  void newPassword(BuildContext context) {
+    authService.newPassword(
+        context: context,
+        newPassword: newPasswordController.text,
+        confirmPassword: confirmPasswordController.text);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,10 +103,7 @@ class NewPassword extends StatelessWidget {
               bottom: 20,
               child: MyButton(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => LoginPage()),
-                    );
+                    newPassword(context);
                   },
                   text: 'Save'),
             ),
