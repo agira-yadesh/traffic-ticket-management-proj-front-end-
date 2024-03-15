@@ -1,10 +1,9 @@
+// ignore: file_names
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:trafficticket_management/components/button.dart';
 import 'package:trafficticket_management/components/textField.dart';
-import 'package:trafficticket_management/pages/success.dart';
 import 'package:trafficticket_management/providers/user_provider.dart';
 import 'package:trafficticket_management/services/auth_services.dart';
 
@@ -24,7 +23,7 @@ class EditProfile extends StatelessWidget {
     final mobile = userData['user']['mobile'];
     String? dobString = userData['user']['dob'];
     String formattedDob = dobString != null
-        ? DateFormat('yyyy/MM/dd').format(DateTime.parse(dobString))
+        ? DateFormat('yyyy-MM-dd').format(DateTime.parse(dobString))
         : '-';
 
     final dl = userData['user']['dl'];

@@ -4,7 +4,6 @@ import 'package:trafficticket_management/components/square_tile.dart';
 import 'package:trafficticket_management/components/textField.dart';
 import 'package:trafficticket_management/pages/login.dart';
 import 'package:trafficticket_management/pages/signup.dart';
-import 'package:trafficticket_management/pages/verifyOtp.dart';
 import 'package:trafficticket_management/services/auth_services.dart';
 
 class ForgetPassword extends StatelessWidget {

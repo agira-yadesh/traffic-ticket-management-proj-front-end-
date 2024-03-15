@@ -48,8 +48,8 @@ class ViewProfile extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: Container(
-                        width: 150,
-                        height: 150,
+                        width: 120,
+                        height: 120,
                         decoration: const BoxDecoration(
                           shape: BoxShape.circle,
                           color: Color.fromARGB(255, 4, 25, 145),
@@ -222,7 +222,7 @@ class ViewProfile extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            formattedDob ?? '-',
+                            formattedDob,
                             style: const TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.w700),
                           ),

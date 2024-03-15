@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:trafficticket_management/components/button.dart';
 import 'package:trafficticket_management/components/textField.dart';
-import 'package:trafficticket_management/pages/login.dart';
 import 'package:trafficticket_management/services/auth_services.dart';
 
 class ChangePassword extends StatelessWidget {

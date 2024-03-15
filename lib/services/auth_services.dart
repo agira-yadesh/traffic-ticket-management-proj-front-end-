@@ -16,6 +16,7 @@ import 'package:trafficticket_management/pages/newPassword.dart';
 
 import 'package:trafficticket_management/pages/setPassword.dart';
 import 'package:trafficticket_management/pages/success.dart';
+import 'package:trafficticket_management/pages/ticketHistory.dart';
 import 'package:trafficticket_management/pages/verifyOtp.dart';
 import 'package:trafficticket_management/pages/viewProfile.dart';
 import 'package:trafficticket_management/providers/user_provider.dart';
@@ -290,8 +291,6 @@ class AuthService {
     required BuildContext context,
   }) async {
     try {
-      var userProvider = Provider.of<UserProvider>(context, listen: false);
-
       SharedPreferences prefs = await SharedPreferences.getInstance();
       String? token = prefs.getString('x-auth-token');
 
@@ -434,6 +433,47 @@ class AuthService {
       );
     } catch (e) {
       showSnackBar(context, e.toString());
+    }
+  }
+
+  void ticketHistory({
+    required BuildContext context,
+  }) async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? token = prefs.getString('x-auth-token');
+
+      http.Response res = await http.get(
+        Uri.parse('${Constants.uri}/ticketHistory'),
+        headers: <String, String>{
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'x-auth-token': token!
+        },
+      );
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          print(res.body);
+          var userTickets = res.body;
+          final Map<String, dynamic> data = json.decode(userTickets);
+          final List<dynamic> tickets = data['ticket'];
+
+          print(userTickets);
+          print('hiii');
+
+          // showSnackBar(context, 'Profile');
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => TicketHistory(userTickets: tickets),
+            ),
+          );
+        },
+      );
+    } catch (e) {
+      print(e);
     }
   }
 }

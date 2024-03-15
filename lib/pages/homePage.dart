@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:trafficticket_management/pages/changePassword.dart';
-import 'package:trafficticket_management/pages/success.dart';
+import 'package:trafficticket_management/pages/create_ticket.dart';
+import 'package:trafficticket_management/pages/delete_account.dart';
+import 'package:trafficticket_management/pages/notificaton_screen.dart';
+import 'package:trafficticket_management/pages/support.dart';
 import 'package:trafficticket_management/pages/terms.dart';
-import 'package:trafficticket_management/pages/viewProfile.dart';
+import 'package:trafficticket_management/pages/ticketHistory.dart';
 import 'package:trafficticket_management/providers/user_provider.dart';
 import 'package:trafficticket_management/services/auth_services.dart';
 
@@ -60,15 +63,17 @@ class _HomePageState extends State<HomePage> {
     AuthService().signOut(context);
   }
 
+  void ticketHistory(BuildContext context) {
+    AuthService().ticketHistory(context: context);
+  }
+
   void userProfile(BuildContext context) {
-    print('hi');
+    // print('hi');
     authService.viewProfile(context: context);
   }
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<UserProvider>(context).user;
-
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 238, 239, 240),
       appBar: AppBar(
@@ -91,7 +96,12 @@ class _HomePageState extends State<HomePage> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => NotificationScreen()));
+              },
               icon: const Icon(
                 Icons.notifications_sharp,
                 color: Color.fromARGB(255, 4, 25, 145),
@@ -154,7 +164,9 @@ class _HomePageState extends State<HomePage> {
               ),
               iconColor: const Color.fromARGB(206, 255, 255, 255),
               textColor: const Color.fromARGB(206, 255, 255, 255),
-              onTap: () {},
+              onTap: () {
+                ticketHistory(context);
+              },
             ),
             const SizedBox(
               height: 10,
@@ -185,7 +197,14 @@ class _HomePageState extends State<HomePage> {
                 'S u p p o r t',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
               ),
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: ((context) => Support()),
+                  ),
+                );
+              },
               iconColor: const Color.fromARGB(206, 255, 255, 255),
               textColor: const Color.fromARGB(206, 255, 255, 255),
             ),
@@ -201,8 +220,8 @@ class _HomePageState extends State<HomePage> {
               iconColor: const Color.fromARGB(206, 255, 255, 255),
               textColor: const Color.fromARGB(206, 255, 255, 255),
               onTap: () {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Terms()));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const Terms()));
               },
             ),
             const SizedBox(
@@ -216,7 +235,12 @@ class _HomePageState extends State<HomePage> {
               ),
               iconColor: const Color.fromARGB(206, 255, 255, 255),
               textColor: const Color.fromARGB(206, 255, 255, 255),
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => DeleteAccount()),
+                );
+              },
             ),
             const SizedBox(
               height: 10,
@@ -286,7 +310,14 @@ class _HomePageState extends State<HomePage> {
                       top: 120,
                       left: 10,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const CreateTicket(),
+                            ),
+                          );
+                        },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all(
                             const Color.fromARGB(255, 0, 217, 255),
@@ -329,15 +360,20 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(
                 height: 20,
               ),
-              const Padding(
-                padding: EdgeInsets.only(left: 10.0),
-                child: Text(
-                  'Dashboard',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(left: 10.0),
+                    child: Text(
+                      'Dashboard',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
-                ),
+                ],
               ),
               // Add the rest of your content below the Dashboard text
             ],
